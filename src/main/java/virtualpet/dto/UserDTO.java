@@ -1,14 +1,10 @@
 package virtualpet.dto;
 
-import virtualpet.models.Role;
 
-import java.util.Set;
 
 public class UserDTO {
     private String username;
     private String password;
-    private Set<Role> roles;
-
 
     public String getUsername() {
         return username;
@@ -26,12 +22,6 @@ public class UserDTO {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 }
 
