@@ -32,10 +32,8 @@ public class UserService implements UserDetailsService {
             throw new RuntimeException("Username is already taken");
         }
 
-        // Codifica la contrasenya
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
-        // Assigna el rol per defecte (USER) com un Set de Role
         newUser.setRoles(Collections.singleton(Role.ROLE_USER));
 
         return userRepository.save(newUser);
@@ -46,7 +44,6 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        // Mapeja els rols a SimpleGrantedAuthority
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())

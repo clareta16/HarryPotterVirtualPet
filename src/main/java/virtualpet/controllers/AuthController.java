@@ -14,10 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import virtualpet.config.JwtTokenProvider;
+import virtualpet.dto.LoginDTO;
 import virtualpet.dto.UserDTO;
 import virtualpet.models.User;
 import virtualpet.services.UserService;
-
 import java.util.Map;
 
 @RestController
@@ -38,14 +38,14 @@ public class AuthController {
     @Operation(summary = "User log in", description = "Get authentication and details of the user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User authenticated",
-                    content = @Content(schema = @Schema(implementation = UserDetails.class))),
+                    content = @Content(schema = @Schema(implementation = Map.class))),
             @ApiResponse(responseCode = "401", description = "invalid user")
     })
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User loginUser) {
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
             );
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
@@ -60,14 +60,19 @@ public class AuthController {
 
     @Operation(summary = "Sign up a new user", description = "Sign up a new user on the Harry Potter virtual pet")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "user registered successfully"),
-            @ApiResponse(responseCode = "400", description = "invalid user")
+            @ApiResponse(responseCode = "200", description = "User registered successfully"),
+            @ApiResponse(responseCode = "400", description = "Error registering user")
     })
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User newUser) {
+    public ResponseEntity<?> register(@RequestBody UserDTO userDTO) {
         try {
+            User newUser = new User();
+            newUser.setUsername(userDTO.getUsername());
+            newUser.setPassword(userDTO.getPassword());
+
             userService.registerUser(newUser);
-            return ResponseEntity.status(HttpStatus.CREATED).body("user registered successfully");
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error registering user: " + e.getMessage());
         }

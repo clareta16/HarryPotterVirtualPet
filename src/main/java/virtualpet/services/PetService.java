@@ -75,7 +75,7 @@ public class PetService {
             existingPet.setHungryLevel(updatedPet.getHungryLevel());
             existingPet.setSleepLevel(updatedPet.getSleepLevel());
             existingPet.setCombatLevel(updatedPet.getCombatLevel());
-            existingPet.setReadyToFightDarkLord(updatedPet.getIsReadyToFightDarkLord());
+            existingPet.setReadyToFightDarkLord(updatedPet.isReadyToFightDarkLord());
 
             return petRepository.save(existingPet);
         } else {

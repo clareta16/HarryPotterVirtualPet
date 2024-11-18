@@ -93,12 +93,12 @@ public class MyVirtualPet {
         this.combatLevel = combatLevel;
     }
 
-    public boolean getIsReadyToFightDarkLord() {
+    public boolean isReadyToFightDarkLord() {
         return isReadyToFightDarkLord;
     }
 
     public void setReadyToFightDarkLord(boolean readyToFightDarkLord) {
-        isReadyToFightDarkLord = readyToFightDarkLord;
+        this.isReadyToFightDarkLord = readyToFightDarkLord;
     }
 
     public PetType getPetType() {
