@@ -36,7 +36,7 @@ This project is a web application for managing virtual pets inspired by the worl
 
 ---
 
-Usage
+## Usage
 Register and Login
 Register on the app by providing a username, password, and the role (ROLE_USER). After registration, you can log in to the app.
 Login with your credentials. Once authenticated, you will be able to manage your virtual pets.
