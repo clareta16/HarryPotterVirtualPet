@@ -5,10 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import virtualpet.models.MyVirtualPet;
-import virtualpet.models.PetType;
-import virtualpet.models.Role;
-import virtualpet.models.User;
+import virtualpet.models.*;
 import virtualpet.repositories.PetRepository;
 import virtualpet.repositories.UserRepository;
 
@@ -49,7 +46,7 @@ public class DataInitializer {
                         .orElseThrow(() -> new RuntimeException("Admin user not found"));
 
                 // Crear la mascota
-                MyVirtualPet demonstrationPet = new MyVirtualPet(PetType.PHOENIX, "Fawkes", "White");
+                MyVirtualPet demonstrationPet = new MyVirtualPet(PetType.PHOENIX, "Fawkes", Colour.GREEN);
 
                 // Assignem l'usuari admin com a propietari
                 demonstrationPet.setOwner(admin);

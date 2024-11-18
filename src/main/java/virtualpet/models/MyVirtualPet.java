@@ -21,7 +21,6 @@ public class MyVirtualPet {
     private Long id;
 
     private String name;
-    private String colour;
     private int hungryLevel;
     private int sleepLevel;
     private int combatLevel;
@@ -30,12 +29,15 @@ public class MyVirtualPet {
     @Enumerated(EnumType.STRING)
     private PetType petType;
 
+    @Enumerated(EnumType.STRING)
+    private Colour colour;
+
     @ManyToOne
     private User owner;
 
     private static final Random random = new Random();
 
-    public MyVirtualPet(PetType petType, String name, String colour) {
+    public MyVirtualPet(PetType petType, String name, Colour colour) {
         this.name = name;
         this.colour = colour;
         this.petType = petType;
@@ -61,11 +63,11 @@ public class MyVirtualPet {
         this.name = name;
     }
 
-    public String getColour() {
+    public Colour getColour() {
         return colour;
     }
 
-    public void setColour(String colour) {
+    public void setColour(Colour colour) {
         this.colour = colour;
     }
 

@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import virtualpet.models.Colour;
 import virtualpet.models.MyVirtualPet;
 import virtualpet.models.PetType;
 import virtualpet.repositories.PetRepository;
@@ -39,7 +40,7 @@ public class PetController {
     })
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/create")
-    public ResponseEntity<MyVirtualPet> createPet(@RequestParam PetType petType, @RequestParam String name, @RequestParam String colour) {
+    public ResponseEntity<MyVirtualPet> createPet(@RequestParam PetType petType, @RequestParam String name, @RequestParam Colour colour) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         MyVirtualPet newPet = petService.createYourPet(petType, name, colour, userDetails);
         return ResponseEntity.ok(newPet);

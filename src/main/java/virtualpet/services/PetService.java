@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import virtualpet.models.Colour;
 import virtualpet.models.MyVirtualPet;
 import virtualpet.models.PetType;
 import virtualpet.models.User;
@@ -34,7 +35,7 @@ public class PetService {
         }
     }
 
-    public MyVirtualPet createYourPet(PetType petType, String name, String colour, UserDetails userDetails) {
+    public MyVirtualPet createYourPet(PetType petType, String name, Colour colour, UserDetails userDetails) {
         // Verificar si la mascota ja existeix per aquest propietari
         if (petRepository.existsByNameAndOwnerUsername(name, userDetails.getUsername())) {
             throw new RuntimeException("Pet with this name already exists for this user.");
