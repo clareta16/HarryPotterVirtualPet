@@ -26,9 +26,6 @@ public class MyVirtualPet {
     private int combatLevel;
     private boolean isReadyToFightDarkLord;
 
-
-    private int trainingCount = 0;
-
     @Enumerated(EnumType.STRING)
     private PetType petType;
 
@@ -66,12 +63,12 @@ public class MyVirtualPet {
     public void train() {
         this.sleepLevel = Math.max(this.sleepLevel - 20, 0);
         this.hungryLevel = Math.max(this.hungryLevel - 30, 0);
-        this.combatLevel = Math.min(this.combatLevel + 10, 100);
+        this.combatLevel = Math.min(this.combatLevel + 20, 100);
 
-        this.trainingCount++;
-
-        if (this.trainingCount >= 5) {
-            this.isReadyToFightDarkLord = true;
+        if (combatLevel == 100) {
+            isReadyToFightDarkLord = true;
+        } else {
+            isReadyToFightDarkLord = false;
         }
     }
 
