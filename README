@@ -1,0 +1,60 @@
+# VirtualPet Harry Potter App
+
+This project is a web application for managing virtual pets inspired by the world of **Harry Potter**. Users can register, log in, choose their pet, assign a color, and interact with it through actions such as **Train**, **Sleep**, and **Eat**. When the pet is ready, it can fight the Dark Lord, marked as **Ready to Fight Dark Lord**.
+
+## Table of Contents
+
+1. [Technologies](#technologies)
+2. [Prerequisites](#prerequisites)
+3. [Installation](#installation)
+4. [Usage](#usage)
+5. [API Endpoints](#api-endpoints)
+6. [Contributing](#contributing)
+7. [License](#license)
+
+---
+
+## Technologies
+
+- **Backend:**
+  - Java
+  - Spring Boot
+  - JPA (Hibernate)
+  - MySQL (or other database systems)
+  - Spring Security for authentication and authorization
+
+- **Frontend:**
+  - HTML5
+  - CSS3
+  - JavaScript
+  - Frameworks like React (if used) or other UI libraries
+
+---
+
+## Prerequisites
+
+1. **Java 11 or higher** installed on your machine.
+2. **Maven** for managing dependencies.
+3. **MySQL** or another JPA-compatible database.
+4. **Node.js** (if you’re using it for the frontend, like React).
+
+---
+
+Usage
+Register and Login
+Register on the app by providing a username, password, and the role (ROLE_USER). After registration, you can log in to the app.
+Login with your credentials. Once authenticated, you will be able to manage your virtual pets.
+Pets
+Once logged in, you can choose your virtual pet and customize it. Available options:
+
+Name: The name of your pet.
+Color: Choose the color of the pet.
+Action: You can choose from the available actions:
+Train: Train your pet to improve its combat level.
+Eat: Feed your pet to reduce its hunger level.
+Sleep: Let your pet sleep to recover its energy.
+
+Ready to Fight Dark Lord
+Once your pet has been trained enough, it will be marked as Ready to Fight Dark Lord, allowing it to participate in special battles against the Dark Lord.
+
+
