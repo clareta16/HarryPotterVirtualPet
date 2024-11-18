@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import virtualpet.models.Colour;
-import virtualpet.models.MyVirtualPet;
-import virtualpet.models.PetType;
-import virtualpet.models.User;
+import virtualpet.models.*;
 import virtualpet.repositories.PetRepository;
 import virtualpet.repositories.UserRepository;
 import java.util.List;
@@ -67,22 +64,35 @@ public class PetService {
         }
     }
 
-    public MyVirtualPet updatePet(Long id, MyVirtualPet updatedPet, UserDetails userDetails) {
+    public MyVirtualPet updatePet(Long id, PetAction petAction, UserDetails userDetails) {
         MyVirtualPet existingPet = petRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Pet not found"));
 
         if (hasAccessToPet(existingPet, userDetails)) {
-            existingPet.setName(updatedPet.getName());
-            existingPet.setHungryLevel(updatedPet.getHungryLevel());
-            existingPet.setSleepLevel(updatedPet.getSleepLevel());
-            existingPet.setCombatLevel(updatedPet.getCombatLevel());
-            existingPet.setReadyToFightDarkLord(updatedPet.isReadyToFightDarkLord());
+            // Processar l'acció seleccionada
+            if (petAction != null) {
+                switch (petAction) {
+                    case EAT:
+                        existingPet.eat();  // Cridar al mètode eat
+                        break;
+                    case TRAIN:
+                        existingPet.train();  // Cridar al mètode train
+                        break;
+                    case SLEEP:
+                        existingPet.sleep();  // Cridar al mètode sleep
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid action: " + petAction);
+                }
+            }
 
+            // Guardem i retornem el pet actualitzat
             return petRepository.save(existingPet);
         } else {
             throw new AccessDeniedException("You do not have permission to update this pet");
         }
     }
+
 
     public void deletePet(Long petId, UserDetails userDetails) {
         MyVirtualPet pet = petRepository.findById(petId)

@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import virtualpet.models.Colour;
 import virtualpet.models.MyVirtualPet;
+import virtualpet.models.PetAction;
 import virtualpet.models.PetType;
 import virtualpet.repositories.PetRepository;
 import virtualpet.services.PetService;
@@ -66,15 +67,22 @@ public class PetController {
     })
     @PreAuthorize("hasRole('ROLE_USER') and @petService.hasAccessToPet(#updatedPet, authentication)")  // Verificar l'accés amb el servei
     @PutMapping("/{petId}")
-    public ResponseEntity<MyVirtualPet> updatePet(@PathVariable Long petId, @RequestBody MyVirtualPet updatedPet) {
+    public ResponseEntity<MyVirtualPet> updatePet(
+            @PathVariable Long petId,
+            @RequestParam PetAction petAction) {  // L'acció es passa com a paràmetre de la consulta
+
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        MyVirtualPet updatedPetResponse = petService.updatePet(petId, updatedPet, userDetails);  // Passant a petService per actualitzar el pet
+
+        // Cridem al servei per actualitzar la mascota amb l'acció seleccionada
+        MyVirtualPet updatedPetResponse = petService.updatePet(petId, petAction, userDetails);
+
         if (updatedPetResponse != null) {
             return ResponseEntity.ok(updatedPetResponse);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @Operation(summary = "Get the pet by id", description = "Returns the pet by the id")
     @ApiResponses(value = {

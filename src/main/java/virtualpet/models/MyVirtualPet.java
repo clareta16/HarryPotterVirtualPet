@@ -26,8 +26,8 @@ public class MyVirtualPet {
     private int combatLevel;
     private boolean isReadyToFightDarkLord;
 
-    private int trainingCount = 0;
 
+    private int trainingCount = 0;
 
     @Enumerated(EnumType.STRING)
     private PetType petType;
@@ -48,70 +48,6 @@ public class MyVirtualPet {
         this.sleepLevel = 100;
         this.combatLevel = 0;
         this.isReadyToFightDarkLord = false;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Colour getColour() {
-        return colour;
-    }
-
-    public void setColour(Colour colour) {
-        this.colour = colour;
-    }
-
-    public int getHungryLevel() {
-        return hungryLevel;
-    }
-
-    public void setHungryLevel(int hungryLevel) {
-        this.hungryLevel = hungryLevel;
-    }
-
-    public int getSleepLevel() {
-        return sleepLevel;
-    }
-
-    public void setSleepLevel(int sleepLevel) {
-        this.sleepLevel = sleepLevel;
-    }
-
-    public int getCombatLevel() {
-        return combatLevel;
-    }
-
-    public void setCombatLevel(int combatLevel) {
-        this.combatLevel = combatLevel;
-    }
-
-    public boolean isReadyToFightDarkLord() {
-        return isReadyToFightDarkLord;
-    }
-
-    public void setReadyToFightDarkLord(boolean readyToFightDarkLord) {
-        this.isReadyToFightDarkLord = readyToFightDarkLord;
-    }
-
-    public PetType getPetType() {
-        return petType;
-    }
-
-    public void setPetType(PetType petType) {
-        this.petType = petType;
     }
 
     public User getOwner() {
