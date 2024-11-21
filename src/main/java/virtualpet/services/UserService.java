@@ -33,7 +33,6 @@ public class UserService implements UserDetailsService {
         }
 
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-
         newUser.setRoles(Collections.singleton(Role.ROLE_USER));
 
         return userRepository.save(newUser);
