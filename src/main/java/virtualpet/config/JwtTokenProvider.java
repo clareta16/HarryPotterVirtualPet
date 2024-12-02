@@ -25,6 +25,7 @@ public class JwtTokenProvider {
     private final PasswordEncoder passwordEncoder;
     private final long validityInMilliseconds;
 
+
     public JwtTokenProvider(@Lazy UserService userService, @Lazy PasswordEncoder passwordEncoder, @Value("${jwt.validity}") long validityInMilliseconds) {
         this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         this.userService = userService;
@@ -34,7 +35,7 @@ public class JwtTokenProvider {
 
     public String createToken(String username, String role) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", role);
+        claims.put("role", role); // Store role directly
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -75,8 +76,8 @@ public class JwtTokenProvider {
         String username = getUsername(token);
         UserDetails userDetails = userService.loadUserByUsername(username);
 
-        System.out.println("We are getting the authetication from " + username);
-        System.out.println("User roles " + userDetails.getAuthorities());
+        System.out.println("We are getting the authentication from " + username);
+        System.out.println("User roles: " + userDetails.getAuthorities());
 
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }

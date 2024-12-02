@@ -46,7 +46,7 @@ public class DataInitializer {
                         .orElseThrow(() -> new RuntimeException("Admin user not found"));
 
                 // Crear la mascota
-                MyVirtualPet demonstrationPet = new MyVirtualPet(PetType.PHOENIX, "Fawkes", Colour.GREEN);
+                MyVirtualPet demonstrationPet = new MyVirtualPet(PetType.OWL, "Errol", Colour.GREEN);
 
                 // Assignem l'usuari admin com a propietari
                 demonstrationPet.setOwner(admin);

@@ -60,16 +60,15 @@ public class PetController {
 
     @Operation(summary = "Update your pet", description = "Update your pet")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Update made correctly",
-                    content = @Content(schema = @Schema(implementation = MyVirtualPet.class))),
-            @ApiResponse(responseCode = "404", description = "Could not find the pet"),
-            @ApiResponse(responseCode = "403", description = "Not authorized to do this update")
+            @ApiResponse(responseCode = "200", description = "Update made correctly", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Could not find the pet", content =@Content),
+            @ApiResponse(responseCode = "403", description = "Not authorized to do this update", content=@Content)
     })
-    @PreAuthorize("hasRole('ROLE_USER') and @petService.hasAccessToPet(#updatedPet, authentication)")  // Verificar l'accés amb el servei
+    @PreAuthorize("hasRole('ROLE_USER') or (hasRole('ROLE_ADMIN') and @petService.isUserAllowedToAccessPet(#id, authentication))")  // Verificar l'accés amb el servei
     @PutMapping("/{petId}")
     public ResponseEntity<MyVirtualPet> updatePet(
             @PathVariable Long petId,
-            @RequestParam PetAction petAction) {  // L'acció es passa com a paràmetre de la consulta
+            @RequestParam PetAction petAction) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

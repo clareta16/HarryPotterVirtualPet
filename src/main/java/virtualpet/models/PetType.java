@@ -1,9 +1,10 @@
 package virtualpet.models;
 
 public enum PetType {
-    DEMENTOR,
+    THESTRAL,
+    OWL,
     BASILISC,
     PHOENIX,
-    THESTRAL,
-    OWL;
+    DEMENTOR;
+
 }

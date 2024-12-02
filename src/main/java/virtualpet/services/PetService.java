@@ -3,6 +3,7 @@ package virtualpet.services;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import virtualpet.models.*;
@@ -91,6 +92,19 @@ public class PetService {
         } else {
             throw new AccessDeniedException("You do not have permission to update this pet");
         }
+    }
+
+    public boolean isUserAllowedToAccessPet(Long petId, Authentication authentication) {
+        // Get user details from authentication
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        // Fetch the pet from the database
+        MyVirtualPet pet = petRepository.findById(petId)
+                .orElseThrow(() -> new EntityNotFoundException("Pet not found"));
+
+        // Check if the current user is the owner of the pet
+        return pet.getOwner().equals(username);
     }
 
 
